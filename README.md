@@ -23,6 +23,7 @@ At instantiation time, describe the range of observations to report on and the n
     Console.WriteLine("Mean: " + b.Mean);
     Console.WriteLine("A particular bin count: " + b.Bins[4]);
     Console.WriteLine("\nFull histogram plus info:\n------" + b.GetHistogram());
+```
 
 ## Sample output
     TotalEntries: 10002
