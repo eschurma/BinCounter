@@ -18,7 +18,7 @@ namespace Tests {
         [Test]
         public void LogTest() {
             BinCounter b = new BinCounter(10, 0f, 1f);
-            float[] observations = new float[] { 0f, .01f, .5f };
+            float[] observations = new float[] { 0f, .01f, .51f };
             float runningSum = 0f;
             foreach(float o in observations) {
                 b.Log(o);
@@ -31,7 +31,7 @@ namespace Tests {
             Assert.AreEqual(2, bin0Cnt, nameof(bin0Cnt));
             long bin5Cnt = b.Bins[5];
             Assert.AreEqual(1, bin5Cnt, nameof(bin5Cnt));
-            Assert.AreEqual(.5f, b.MaxObservation, nameof(b.MaxObservation));
+            Assert.AreEqual(.51f, b.MaxObservation, nameof(b.MaxObservation));
             Assert.AreEqual(0f, b.MinObservation, nameof(b.MinObservation));
             Assert.AreEqual(mean, b.Mean, nameof(b.Mean));
 
@@ -72,7 +72,7 @@ namespace Tests {
         [Test]
         public void ResetTest() {
             BinCounter b = new BinCounter(10, 0, 1);
-            Random r = new Random();
+            System.Random r = new System.Random();
 
             for(int i = 0; i < 500; i++) {
                 b.Log((float)r.NextDouble());
