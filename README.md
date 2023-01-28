@@ -1,5 +1,5 @@
 # BinCounter
-BinCounter lets you gather very large numbers of float based observations in a memory efficient way and produce histograms and other statistics describing those observations.
+BinCounter provides a memory efficient way to gather very large numbers of numeric observations, count them into bins, and produce histograms and other statistics describing those bins of observations.
 
 At instantiation time, describe the range of observations to report on and the number of buckets to divide that range into.  Then log up to long.MaxValue observations and at any point access the entry counts in different bins or produce histograms and statistics about the data.
 
