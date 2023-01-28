@@ -6,7 +6,7 @@ using System.Diagnostics;
 /// Counts observed data into bins for reporting histograms and other statistics about that data.
 /// </summary>
 public class BinCounter {
-    private long[] _bins;
+    private List<long> _bins;
     public IList<long> Bins;
 
     private float _rangeMin;
@@ -68,8 +68,8 @@ public class BinCounter {
         Debug.Assert(numBins > 0);
         Debug.Assert(rangeMin < rangeMax);
 
-        _bins = new long[numBins];
-        Bins = Array.AsReadOnly(_bins);
+        _bins = new List<long>(new long[numBins]);
+        Bins = _bins.AsReadOnly();
         _numBins = numBins;
         _rangeMin = rangeMin;
         _rangeMax = rangeMax;
@@ -195,7 +195,7 @@ public class BinCounter {
     /// Resets the array to all zero values.
     /// </summary>
     public void Reset() {
-        System.Array.Clear(_bins, 0, _bins.Length);
+        for (var i = 0; i<_bins.Capacity; i++) { _bins[i] = 0; }
         _countAboveRangeMax = 0;
         _countBelowRangeMin = 0;
         _minObservation = float.NaN;

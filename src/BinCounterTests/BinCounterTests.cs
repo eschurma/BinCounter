@@ -7,7 +7,7 @@ namespace Tests {
         //       but in this case I didn't want that. 
 
         [Test]
-        public void BasicTest() {
+        public void BinCounterInitTest() {
             BinCounter b = new BinCounter(10, 0f, 1f);
             Assert.AreEqual(0.1f, b.BinSize, nameof(b.BinSize));
             Assert.AreEqual(0f, b.RangeMin, nameof(b.RangeMin));
@@ -37,7 +37,12 @@ namespace Tests {
 
             b.Log((double)1);
             long bin9Cnt = b.Bins[9];
-            Assert.AreEqual(1, bin9Cnt);
+            Assert.AreEqual(1, bin9Cnt, "Failed adding Double observation.");
+
+            b.Log((int)1);
+            bin9Cnt = b.Bins[9];
+            Assert.AreEqual(2, bin9Cnt, "Failed adding Int observation.");
+
         }
 
         [Test]
@@ -51,6 +56,7 @@ namespace Tests {
             Assert.IsTrue(b.Bins[b.NumBins - 1] == 2, "Failed adding value extremely close to RangeMax.");
         }
 
+        [Test]
         public void LogBeyondBoundariesTest() {
             BinCounter b = new BinCounter(10, -1, 1);
             b.Log(-2);
@@ -58,10 +64,11 @@ namespace Tests {
             Assert.IsTrue(b.Bins[0] == 1);
             Assert.IsTrue(b.Bins[b.NumBins - 1] == 1);
             b.Log(3);
-            Assert.AreEqual(2, b.CountAboveRangeMax, nameof(b.CountAboveRangeMax));
-            Assert.AreEqual(1, b.CountBelowRangeMin, nameof(b.CountBelowRangeMin));
+            Assert.AreEqual(2, b.CountAboveRangeMax, nameof(b.CountAboveRangeMax), "Failed to count above range observations.");
+            Assert.AreEqual(1, b.CountBelowRangeMin, nameof(b.CountBelowRangeMin), "Failed to count below range observations.");
         }
 
+        [Test]
         public void LogNaNtest() {
             BinCounter b = new BinCounter(10, -1, 1);
             b.Log(-2);
@@ -106,6 +113,7 @@ namespace Tests {
             Assert.AreEqual(0, b.CountBelowRangeMin, nameof(b.CountBelowRangeMin));
             Assert.AreEqual(float.NaN, b.Mean, nameof(b.Mean));
 
+            // Check that it can be written to successfully after.
             b.Log(1f);
             b.Log(2f);
             Assert.AreEqual(1f, b.MinObservation, nameof(b.MinObservation));
