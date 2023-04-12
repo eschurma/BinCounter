@@ -31,7 +31,7 @@ public class BinCounter {
 
     private long _countAboveRangeMax;
     /// <summary>
-    /// The number of observations higher then RangeMin
+    /// The number of observations higher then RangeMax
     /// </summary>
     public long CountAboveRangeMax { get => _countAboveRangeMax; }
 
